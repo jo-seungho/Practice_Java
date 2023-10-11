@@ -4,16 +4,40 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	
+	
+	<!-- 
+		* web.xml 파일
+		배포서술자 라고 해서 서버가 구동되는 시점에서 제일 먼저 읽혀지는 파일
+		Spring 프로젝트가 필요로 하는 설정들을 이 파일에서 작성할 것
+	-->	
+	
+	<!-- 이 프로젝트가 읽어들여야 할 Spring 의 최상위 설정파일 (root-context.xml) 의 경로를 정의한 부분 -->
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->	
+	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+		/WEB-INF/spring/root-context.xml
+		/WEB-INF/spring/spring-security.xml
+		</param-value>
 	</context-param>
 	
+	<!-- 모든 설정파일들을 연결할 수 있는 도구 (== bean == 자바 객체) 를 등록한 부분 -->	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+
+	<!-- 
+		이 웹 프로젝트의 요청 처리를 어떻게 할건지 등록한 부분
+		즉, 요청을 처리하는 메인 서블릿을 등록하는 부분 (이 셋팅은 무조건 있어야 함!!)
+		=> 해당 메인 서블릿명 : DispatcherServlet
+		
+		스프링에서 요청 처리 시 기본적으로 모든 요청들은 이 DispatcherServlet 을 거쳐가게 되어있음!!
+		DispatcherSerblet 은 servlet-context.xml 파일에 의해 동작하게 되어있음
+	-->
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
@@ -29,5 +53,40 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	
+	<!-- 
+		* 필터
+		모든 요청 처리 전 공통적으로 필요로 하는 기능들을 Servlet 이 받기 전에 먼저 가로채서
+		Filter 가 먼저 수행되게끔 web.xml 에 등록할 것
+		
+		* 수행 시점
+		요청 -> Filter -> DispatcherServlet -> Controller 클래스
+		
+		* 스프링에서 제공해주는 인코딩 필터를 등록
+		- org.springframework.web.filter.CharacterEncodingFilter
+		- 필터 등록 시 filter 태그와 filter-mapping 태그를 같이 써야 한다.
+		- 반드시 filter-name 태그로 filter 명을 지정해야 한다.
+	-->	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- 옵션1 : 인코딩 방식을 UTF-8 로 설정 -->
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<!-- 옵션2 : 혹시나 충돌 시 강제 인코딩 방식 또한 UTF-8 -->
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<!-- 위에서 지정한 필터를 모든 패턴에 적용하겠다다 -->
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>	
 
 </web-app>

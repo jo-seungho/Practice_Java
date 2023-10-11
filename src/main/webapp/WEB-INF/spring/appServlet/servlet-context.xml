@@ -24,5 +24,13 @@
 	<context:component-scan base-package="com.kh.jsh" />
 	
 	
+	<!-- 인터셉터 등록 -->
+	<!-- 
+	<interceptors>
+		<interceptor>
+			<mapping path="/board.me" />
+		</interceptor>
+	</interceptors>
+	 -->
 	
 </beans:beans>
