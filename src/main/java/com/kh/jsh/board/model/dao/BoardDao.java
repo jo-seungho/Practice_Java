@@ -15,4 +15,8 @@ public class BoardDao {
 		return (ArrayList)sqlSession.selectList("boardMapper.selectBoard");
 	}
 
+	public Board searchCol(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.selectOne("boardMapper.searchCol", bNo);
+	}
+
 }

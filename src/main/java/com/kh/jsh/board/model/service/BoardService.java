@@ -8,4 +8,6 @@ public interface BoardService {
 
 	ArrayList<Board> selectBoard();
 
+	Board searchCol(int bNo);
+
 }

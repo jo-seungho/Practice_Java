@@ -25,4 +25,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.selectBoard(sqlSession);
 	}
 
+	@Override
+	public Board searchCol(int bNo) {
+		return boardDao.searchCol(sqlSession, bNo);
+	}
+
+
+
 }

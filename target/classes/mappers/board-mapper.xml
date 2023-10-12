@@ -12,9 +12,15 @@
 	
 	<!-- 쿼리문 작성 구역 -->
 	<select id="selectBoard" resultMap="boardResultSet">
-	SELECT *
+	SELECT USER_NO, USER_NAME
 	  FROM BOARD
 	</select>
+	
+	<select id="searchCol" resultMap="boardResultSet">
+	SELECT *
+	  FROM BOARD
+	 WHERE USER_NO = #{bNo}
+ 	</select>
 	
 	
 </mapper>
