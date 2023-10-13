@@ -19,4 +19,8 @@ public class BoardDao {
 		return sqlSession.selectOne("boardMapper.searchCol", bNo);
 	}
 
+	public int deleteBoard(SqlSessionTemplate sqlSession, int bNo) {
+		return sqlSession.update("boardMapper.deleteBoard", bNo);
+	}
+
 }

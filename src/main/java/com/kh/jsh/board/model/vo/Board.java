@@ -14,5 +14,6 @@ public class Board {
 	private String address;
 	private String major;
 	private String collage;
+	private String status;
 
 }

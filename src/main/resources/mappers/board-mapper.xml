@@ -7,6 +7,7 @@
 		<result column="ADDRESS" property="address" />
 		<result column="MAJOR" property="major" />
 		<result column="COLLAGE" property="collage" />
+		<result column="STATUS" property="status" />
 	</resultMap>
 	
 	
@@ -14,6 +15,7 @@
 	<select id="selectBoard" resultMap="boardResultSet">
 	SELECT USER_NO, USER_NAME
 	  FROM BOARD
+	 WHERE STATUS = 'Y' 
 	</select>
 	
 	<select id="searchCol" resultMap="boardResultSet">
@@ -21,6 +23,12 @@
 	  FROM BOARD
 	 WHERE USER_NO = #{bNo}
  	</select>
+ 	
+ 	<update id="deleteBoard" parameterType="_int">
+ 	UPDATE BOARD
+ 	   SET STATUS = 'N'
+ 	 WHERE USER_NO = #{bNo}   
+ 	</update>
 	
 	
 </mapper>

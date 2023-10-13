@@ -10,4 +10,6 @@ public interface BoardService {
 
 	Board searchCol(int bNo);
 
+	int deleteBoard(int bNo);
+
 }

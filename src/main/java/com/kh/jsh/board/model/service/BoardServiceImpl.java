@@ -30,6 +30,11 @@ public class BoardServiceImpl implements BoardService{
 		return boardDao.searchCol(sqlSession, bNo);
 	}
 
+	@Override
+	public int deleteBoard(int bNo) {
+		return boardDao.deleteBoard(sqlSession, bNo);
+	}
+
 
 
 }
